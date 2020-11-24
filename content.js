@@ -1,4 +1,3 @@
-console.log("babbyyy")
 var synth = speechSynthesis;
 let voices = []
 
@@ -13,7 +12,6 @@ if (synth.onvoiceschanged != undefined) {
 }
 
 const audio = () => {
-  console.log("execinggg")
   // checks if speaking
   if (synth.speaking) {
     console.error("Already speaking..")

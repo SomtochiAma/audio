@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // grabAudioAndPlay()
+    setupFunction()
     var button = document.getElementById("submit")
-    var headings = document.getElementsByTagName("h2")
     button.addEventListener("click", (e) => {     
       grabAudioAndPlay()
     })
 })
 
-function grabAudioAndPlay() {
-  console.log("me")
+function setupFunction() {
   chrome.tabs.executeScript({ file: "content.js" })
 }
 
+
+function grabAudioAndPlay() {
+  chrome.tabs.executeScript({ code: "audio()" })
+}
 
 
 
