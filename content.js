@@ -1,18 +1,6 @@
 var synth = speechSynthesis;
-let voices = []
 
-const getVoices = () => {
-  synth.getVoices()
-  console.log(voices)
-}
-
-getVoices()
-if (synth.onvoiceschanged != undefined) {
-  synth.onvoiceschanged = getVoices()
-}
-
-const audio = () => {
-  // checks if speaking
+const audio = (voiceName, rate, pitch) => {
   if (synth.speaking) {
     console.error("Already speaking..")
     return
@@ -30,9 +18,15 @@ const audio = () => {
     console.error("error playing text", e)
   }
 
-  // speakText.voice = voices[1] 
-  // speakText.rate = 1
-
+  speakText.rate = rate
+  speakText.pitch = pitch
+  
+  window.speechSynthesis.getVoices().forEach(voice => {
+    if (voice.name == voiceName) {
+      speakText.voice = voice
+    }
+  })
+   
   synth.speak(speakText)
 }
 
@@ -57,5 +51,3 @@ const getSelection = () => {
 
   return selectedText
 }
-
-// audio()
