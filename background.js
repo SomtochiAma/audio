@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getVoices = () => {
     voices = synth.getVoices()
-    console.log(voices)
-    console.log("here")
     voices.forEach(voice => {
       const option = document.createElement('option')
       option.textContent = `${voice.name} (${voice.lang})`
@@ -28,10 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setupFunction()
-  var button = document.getElementById("submit")
-  button.addEventListener("click", (e) => {   
+  var playButton = document.getElementById("play")
+  playButton.addEventListener("click", (e) => {   
+    e.preventDefault()
     selectedVoice = voiceSelect.options[voiceSelect.selectedIndex].dataset.name
     grabAudioAndPlay(selectedVoice, rate.value, pitch.value)
+  })
+
+  var pauseButton = document.getElementById("stop")
+  pauseButton.addEventListener("click", (e) => {   
+    e.preventDefault()
+    pauseAudio()
   })
 })
 
@@ -41,9 +46,18 @@ function setupFunction() {
 
 
 function grabAudioAndPlay(voice, rate, pitch) {
-  chrome.tabs.executeScript({ code: `audio("${voice}", ${rate}, ${pitch})`})
+  chrome.tabs.executeScript({ code: `audio("${voice}", ${rate}, ${pitch})`}, () => {
+    if (chrome.runtime.lastError) {
+      var errorMsg = chrome.runtime.lastError.message
+      if (errorMsg == "Cannot access a chrome:// URL") {
+          errorMsg = "Cannot play audio in chrome settings :(, visit another url."
+      }
+      var errorDisplay = document.querySelector("#error")
+      errorDisplay.textContent = errorMsg
+   }
+  })
 }
 
-
-
-
+function pauseAudio() {
+  chrome.tabs.executeScript({ code: `pauseAudio()`})
+}

@@ -1,13 +1,17 @@
 var synth = speechSynthesis;
 
 const audio = (voiceName, rate, pitch) => {
-  if (synth.speaking) {
-    console.error("Already speaking..")
+  if (synth.paused) {
+    synth.resume()
     return
   }
 
+  if (synth.speaking) {
+    console.info("Already speaking..")
+    synth.cancel()
+  }
+
   var text = getSelection()
-  console.log("herre", text)
 
   const speakText = new SpeechSynthesisUtterance(text);
   speakText.onend = e => {
@@ -28,6 +32,10 @@ const audio = (voiceName, rate, pitch) => {
   })
    
   synth.speak(speakText)
+}
+
+const pauseAudio = () => {
+  synth.pause()
 }
 
 const getSelection = () => {
