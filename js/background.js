@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function setupFunction() {
-  chrome.tabs.executeScript({ file: "content.js" })
+  chrome.tabs.executeScript({ file: "js/content.js" })
 }
 
 
@@ -57,12 +57,14 @@ function pauseAudio() {
 }
 
 function errorHandler() {
+  var errorDisplay = document.querySelector("#error")
   if (chrome.runtime.lastError) {
     var errorMsg = chrome.runtime.lastError.message
     if (errorMsg == "Cannot access a chrome:// URL") {
         errorMsg = "Cannot play audio in chrome settings :(, visit another url."
     }
-    var errorDisplay = document.querySelector("#error")
     errorDisplay.textContent = errorMsg
+  } else {
+    errorDisplay.textContent = ''
   }
 }

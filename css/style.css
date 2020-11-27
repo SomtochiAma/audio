@@ -1,0 +1,46 @@
+body {
+    font: 100;
+    background-color: #251351;
+    color: #F4FDD9;
+    margin: 30px;
+    font-size: 15px;
+}
+
+h2 {
+    color: #FC7A1E;
+    text-align: center;
+}
+
+.btn-box {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-group {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.form-group input[type=range] {
+    width: 100%;
+}
+
+.form-group select {
+    padding: 5px;
+}
+
+.form-group label {
+    margin-right: 5px;
+}
+
+.btn {
+    outline: none;
+    padding: 5px 10px;
+    background-color: #F4FDD9;
+    border: none;
+    border-radius: 3px;
+    color:#251351;
+    margin: 0 5px;
+}
