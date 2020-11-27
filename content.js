@@ -7,7 +7,6 @@ const audio = (voiceName, rate, pitch) => {
   }
 
   if (synth.speaking) {
-    console.info("Already speaking..")
     synth.cancel()
   }
 
@@ -20,6 +19,7 @@ const audio = (voiceName, rate, pitch) => {
 
   speakText.onerror = e => {
     console.error("error playing text", e)
+    throw(err)
   }
 
   speakText.rate = rate
@@ -36,6 +36,10 @@ const audio = (voiceName, rate, pitch) => {
 
 const pauseAudio = () => {
   synth.pause()
+}
+
+const stopAudio = () => {
+  synth.cancel()
 }
 
 const getSelection = () => {
