@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "description": "A chrome extension to convert a webpage to audio",
     "short_name": "AudioWeb",
-    "permissions": ["activeTab", "declarativeContent"],
+    "permissions": ["activeTab"],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
